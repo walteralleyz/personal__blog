@@ -11,6 +11,9 @@
     "esModuleInterop": true,
     "resolveJsonModule": true, 
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true
   }
 }
