@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walter Blog | Novo Post</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('partials/header.ejs') %>
+        <form class="col-12 col-md-8 m-auto card py-4 shadow" onsubmit="sendNewPost(event)">
+            <fieldset>
+                <legend class="text-center display-5">Novo Post</legend>
+
+                <div class="form-group">
+                    <label for="title">Titulo</label>
+                    <input type="text" class="form-control" id="title" placeholder="Titulo do post" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="desc">Descrição</label>
+                    <input type="text" class="form-control" id="desc" placeholder="Algo que descreve o seu post"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="img">Thumbnail</label>
+                    <input type="text" class="form-control" id="img" placeholder="A Thumbnail do seu post" required>
+                </div>
+
+                <textarea></textarea>
+            </fieldset>
+
+            <button class="btn-lg btn-danger">Salvar</button>
+        </form>
+    </div>
+    <script>
+        var easyMDE = new EasyMDE();
+
+        async function sendData({ title, description, thumb, content }) {
+            const { email, token } = JSON.parse(localStorage.getItem('user'));
+
+            const body = await fetch(`${window.location.origin}/blog/`, {
+                method: 'POST',
+                body: JSON.stringify({ title, description, thumb, content, email }),
+                headers: new Headers({
+                    'content-type': 'application/json',
+                    'access-control-allow-headers': `Bearer ${token}`
+                })
+            });
+
+            const result = await body.json();
+
+            return result;
+        }
+
+        async function sendNewPost(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('desc').value;
+            const thumb = document.getElementById('img').value;
+            const content = easyMDE.value();
+
+            if(!title || !description || !thumb || !content) return ;
+
+            const postData = await sendData({ title, description, thumb, content });
+            
+            if(postData)
+                window.location.replace(window.location.origin);
+            else
+                alert('erro');
+        }
+    </script>
+</body>
+
+</html>

@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { createConnection } from 'typeorm';
+import morgan from 'morgan';
 
 import { blogRouter } from './routes/blog';
 import { authorRouter } from './routes/author';
@@ -17,6 +18,7 @@ createConnection(options)
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 app.use(express.static('public'));
 
@@ -30,5 +32,7 @@ app.get('/', (request: Request, response: Response) => {
     response.redirect('/blog');
     response.end();
 })
+
+app.get('/login', (request: Request, response: Response) => response.sendFile(path.join(__dirname + '/../public/login.html')));
 
 app.listen(port, () => console.log('Ouvindo na porta %d', port));

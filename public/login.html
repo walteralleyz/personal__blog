@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walter Blog | Login</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        form {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 25%);
+        }
+    </style>
+</head>
+<body class="bg-secondary">
+    <div class="container">
+        <form class="col-12 col-md-6 card py-4 shadow bg-light" onsubmit="sendLoginData(event)">
+            <fieldset>
+                <legend class="text-center display-4 my-3">Bem vindo!</legend>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Insira seu email" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="pswd">Senha</label>
+                    <input type="password" class="form-control" id="pswd" placeholder="Sua senha" required>
+                </div>
+            </fieldset>
+
+            <button class="btn btn-lg btn-info">Entrar</button>
+        </form>
+    </div>
+    <script>
+        async function sendData({ email, password }) {
+            const body = await fetch(`${window.location.origin}/author/signin`, {
+                method: 'POST',
+                body: JSON.stringify({ email, password }),
+                headers: new Headers({
+                    'content-type': 'application/json'
+                })
+            });
+
+            const result = await body.json();
+
+            return result;
+        }
+
+        function saveToStorage(userData) {
+            if(userData.token) {
+                localStorage.setItem('user', JSON.stringify(userData));
+                window.location.replace(window.location.origin);
+            }
+            else
+                alert('Dados incorretos!');
+        }
+
+        async function sendLoginData(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('pswd').value;
+
+            if(!email || !password) return ;
+
+            const userData = await sendData({ email, password });
+            saveToStorage(userData);
+        }
+    </script>
+</body>
+</html>

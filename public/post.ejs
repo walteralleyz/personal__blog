@@ -1,16 +1,18 @@
-<html>
-<%- include('head.ejs', { page_title: `Walter Blog - ${title}`, image: image, title: title, description: description }); %>
+<!DOCTYPE html>
+<html lang="pt_BR">
+<%- include('partials/head.ejs', { page_title: `Walter Blog - ${title}`, image: image, title: title, description: description, type: 'article' }); %>
 
 <body>
     <div class="container">
-        <%- include('header.ejs') %>
-        <main id="blog" class="p-3">
+        <%- include('partials/header.ejs') %>
+        <main id="blog">
             <section class="row">
-                <%- include('aside.ejs') %>
-                <article class="col-12 col-md-9">
+                <%- include('partials/aside.ejs') %>
+                <article class="col-12 col-md-8 my-3">
                     <div id="post" class="border border-secondary rounded p-3">
                         <h1><%= title %></h1>
-                        <p><%= description %></p>
+                        <small class="bg-secondary text-light"><%= pub.toLocaleDateString() %></small>
+                        <small class="bg-secondary text-light"><%= description %></small>
                         <%- post %>
                     </div>
                 </article>

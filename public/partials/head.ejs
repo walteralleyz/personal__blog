@@ -1,0 +1,49 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="<%= image %>" >
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="600">
+    <meta property="og:title" content="<%= title %>" >
+    <meta property="og:description" content="<%= description %>" >
+    <meta property="og:type" content="<%= type %>" >
+    <meta property="og:site_name" content="Walter Blog" >
+    <meta property="og:locale" content="pt_BR">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        a {
+            text-decoration: none;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .pointer:hover {
+            cursor: pointer;
+        }
+    </style>
+    <title><%= page_title %></title>
+
+    <script>
+        function goHome() {
+            window.location.replace(window.location.origin);
+        }
+
+        function renderGoTo() {
+            const goto = document.getElementById('goto');
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            if(user?.token) {
+                goto.textContent = 'Novo Post';
+                goto.setAttribute('href', window.location.origin + '/blog/new');
+            }
+            else
+                goto.style.display = 'none';
+        }
+
+        window.onload = () => renderGoTo();
+    </script>
+</head>
