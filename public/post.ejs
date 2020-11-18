@@ -1,0 +1,22 @@
+<html>
+<%- include('head.ejs', { page_title: `Walter Blog - ${title}`, image: image, title: title, description: description }); %>
+
+<body>
+    <div class="container">
+        <%- include('header.ejs') %>
+        <main id="blog" class="p-3">
+            <section class="row">
+                <%- include('aside.ejs') %>
+                <article class="col-12 col-md-9">
+                    <div id="post" class="border border-secondary rounded p-3">
+                        <h1><%= title %></h1>
+                        <p><%= description %></p>
+                        <%- post %>
+                    </div>
+                </article>
+            </section>
+    </div>
+    </div>
+</body>
+
+</html>
