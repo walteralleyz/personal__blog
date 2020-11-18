@@ -1,10 +1,11 @@
 import 'reflect-metadata';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { createConnection } from 'typeorm';
 
 import { blogRouter } from './routes/blog';
+import { authorRouter } from './routes/author';
 import options from './config/ormconfig';
 
 const app = express();
@@ -20,6 +21,12 @@ app.use(bodyParser.json());
 app.set('views', path.join(__dirname, 'blog'));
 app.set('view engine', 'ejs');
 
-app.use('/', blogRouter);
+app.use('/blog', blogRouter);
+app.use('/author', authorRouter);
+
+app.get('/', (request: Request, response: Response) => {
+    response.redirect('/blog');
+    response.end();
+})
 
 app.listen(port, () => console.log('Ouvindo na porta %d', port));

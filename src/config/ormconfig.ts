@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import BlogPost from '../model/post';
+import BlogPost from '../model/blog';
 import Author from '../model/author';
 import { ConnectionOptions } from 'typeorm';
 

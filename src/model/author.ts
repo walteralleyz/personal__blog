@@ -9,7 +9,7 @@ import {
 
 import { encrypt } from '../helpers/encrypt';
 
-import BlogPost from './post'; 
+import BlogPost from './blog'; 
 
 @Entity()
 @Unique(['email'])
