@@ -16,9 +16,10 @@ const options: ConnectionOptions = {
         Author
     ],
     synchronize: false,
-    migrations: ['src/migration/*.ts'],
+    migrations: ['build/migration/*.js'],
+    migrationsRun: false,
     cli: {
-        migrationsDir: 'src/migration'
+        migrationsDir: 'build/migration'
     }
 };
 

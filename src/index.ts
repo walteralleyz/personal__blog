@@ -35,4 +35,8 @@ app.get('/', (request: Request, response: Response) => {
 
 app.get('/login', (request: Request, response: Response) => response.sendFile(path.join(__dirname + '/../public/login.html')));
 
+app.use('*', (request: Request, response: Response) => {
+    response.send('<h1>404!</h1><br /><p>Página não encontrada!</p>');
+});
+
 app.listen(port, () => console.log('Ouvindo na porta %d', port));

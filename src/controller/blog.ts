@@ -25,8 +25,6 @@ export default class BlogController {
                     post.author = data;
 
                     repository.save(post);
-
-                    console.log(data);
                 }
             })
 
@@ -35,7 +33,9 @@ export default class BlogController {
 
     async read(request: Request, response: Response) {
         const repository = getRepository(BlogPost);
-        const posts = await repository.find({});
+        let posts = await repository.find({});
+
+        posts = posts.sort((a, b) => b.id - a.id);
 
         response.render('post_list', { posts });
     }
@@ -57,7 +57,8 @@ export default class BlogController {
                 title: post.title,
                 description: post.description,
                 image: post.thumb,
-                pub: post.created_at
+                pub: post.created_at,
+                id: post.id
             });
         }
     }

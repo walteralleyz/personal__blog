@@ -9,7 +9,11 @@
             <section class="row">
                 <%- include('partials/aside.ejs') %>
                 <article class="col-12 col-md-8 my-3">
-                    <div id="post" class="border border-secondary rounded p-3">
+                    <div id="post" class="border border-secondary rounded p-3" data-id="<%= id %>">
+                        <div class="options">
+                            <small class="bg-danger text-light pointer" onclick="deletePostById()">Apagar</small>
+                            <small class="bg-info text-light pointer">Editar</small>
+                        </div>
                         <h1><%= title %></h1>
                         <small class="bg-secondary text-light"><%= pub.toLocaleDateString() %></small>
                         <small class="bg-secondary text-light"><%= description %></small>
@@ -19,6 +23,23 @@
             </section>
     </div>
     </div>
+    <script>
+        async function deletePostById() {
+            const postId = document.getElementById('post').dataset['id'];
+            const { email, token } = JSON.parse(localStorage.getItem('user'));
+
+            const body = await fetch(`${window.location.origin}/blog/${postId}`, {
+                method: 'DELETE',
+                headers: new Headers({
+                    'access-control-allow-headers': `Bearer ${token}`
+                })
+            });
+
+            const result = await body.json();
+
+            window.location.replace(window.location.origin);
+        }
+    </script>
 </body>
 
 </html>

@@ -34,14 +34,18 @@
 
         function renderGoTo() {
             const goto = document.getElementById('goto');
+            const options = document.querySelector('.options');
             const user = JSON.parse(localStorage.getItem('user'));
 
             if(user?.token) {
                 goto.textContent = 'Novo Post';
                 goto.setAttribute('href', window.location.origin + '/blog/new');
             }
-            else
-                goto.style.display = 'none';
+            else {
+                goto.textContent = 'Entrar';
+                goto.setAttribute('href', window.location.origin + '/login');
+                options.style.display = 'none';
+            }
         }
 
         window.onload = () => renderGoTo();
