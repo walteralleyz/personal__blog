@@ -7,6 +7,7 @@ import morgan from 'morgan';
 
 import { blogRouter } from './routes/blog';
 import { authorRouter } from './routes/author';
+import { commentsRouter } from './routes/comments';
 import options from './config/ormconfig';
 
 const app = express();
@@ -27,6 +28,7 @@ app.set('view engine', 'ejs');
 
 app.use('/blog', blogRouter);
 app.use('/author', authorRouter);
+app.use('/comments', commentsRouter);
 
 app.get('/', (request: Request, response: Response) => {
     response.redirect('/blog');
