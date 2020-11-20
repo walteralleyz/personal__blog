@@ -1,7 +1,9 @@
 import { config } from 'dotenv';
+import { ConnectionOptions } from 'typeorm';
+
 import BlogPost from '../model/blog';
 import Author from '../model/author';
-import { ConnectionOptions } from 'typeorm';
+import Comments from '../model/comments';
 
 config();
 
@@ -13,13 +15,14 @@ const options: ConnectionOptions = {
     },
     entities: [
         BlogPost,
-        Author
+        Author,
+        Comments
     ],
     synchronize: false,
     migrations: ['build/migration/*.js'],
     migrationsRun: false,
     cli: {
-        migrationsDir: 'build/migration'
+        migrationsDir: 'src/migration'
     }
 };
 

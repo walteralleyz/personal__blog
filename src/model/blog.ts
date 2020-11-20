@@ -6,6 +6,7 @@ import {
 } from 'typeorm';
 
 import Author from './author';
+import Comments from './comments';
 
 @Entity()
 export default class BlogPost {
@@ -32,4 +33,7 @@ export default class BlogPost {
 
     @ManyToOne(() => Author, author => author.blogPosts)
     author: Author;
+
+    @ManyToOne(() => Comments, comments => comments.blogPost)
+    comments: Comments[];
 }
